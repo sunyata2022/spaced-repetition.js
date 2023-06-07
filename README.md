@@ -6,7 +6,7 @@ Spaced Repetition.js is a JavaScript library for implementing the spaced repetit
 
 To install Spaced Repetition.js, run:
 ```bash
-npm install spaced-repetition
+npm install spaced-repetition.js
 ```
 
 ## Dependencies
@@ -17,13 +17,13 @@ Spaced Repetition.js does not have any dependencies.
 
 Here is an example of how to use Spaced Repetition.js:
 ```javascript
-import { SM2, SM2Item } from 'spaced-repetition';
+import { sm2 } from 'spaced-repetition.js';
 
 // Create a new SM2 item const item: 
-SM2Item = { interval: 0, count: 1, efactor: 2.5, quantity: 0, };
+const item = { interval: 0, count: 1, efactor: 2.5, quantity: 0, };
 
 // Calculate the next interval 
-const result = SM2(item);
+const result = sm2(item);
 
 // Log the result 
 console.log(result);
