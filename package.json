@@ -1,6 +1,6 @@
 {
   "name": "spaced-repetition.js",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "An Javascript implementation of toolkit for Spaced Repetition.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
