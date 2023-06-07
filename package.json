@@ -1,0 +1,28 @@
+{
+  "name": "spaced-repetition.js",
+  "version": "1.0.0",
+  "description": "An Javascript implementation of toolkit for Spaced Repetition.",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "test": "jest",
+    "build": "tsc"
+  },
+  "files":[
+    "dist/*"
+  ],
+  "keywords": [
+    "spaced",
+    "repetition",
+    "supermemo",
+    "sm-2"
+  ],
+  "author": "sunyata2022",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^29.5.2",
+    "jest": "^29.5.0",
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.1.3"
+  }
+}
