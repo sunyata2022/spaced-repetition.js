@@ -44,6 +44,8 @@ function calculateInterval(interval: number, efactor: number): number {
  * @return {SM2Result} an object with the next SM2Item and a boolean indicating if the item needs to be repeated
  */
 function sm2(item: SM2Item): SM2Result {
+    //TODO:need check parameter valid.
+    
     const { interval = 1, count = 1, efactor = 2.5, quality } = item;
     const needRepeat: boolean = quality < 4;
     const nextItem: SM2Item = {
