@@ -20,7 +20,13 @@ Here is an example of how to use Spaced Repetition.js:
 import { sm2 } from 'spaced-repetition.js';
 
 // Create a new SM2 item const item: 
-const item = { interval: 0, count: 1, efactor: 2.5, quality: 5 };
+// interval
+const item = { 
+    interval: 0,    //Integer, interval >=0
+    count: 1,       //Integer, count >=1
+    efactor: 2.5,   //Float, 1.3 <= efactor <= 2.5
+    quality: 5      //Integer, [0,1,2,3,4,5]
+};
 
 // Calculate the next interval 
 const result = sm2(item);
