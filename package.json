@@ -1,6 +1,6 @@
 {
   "name": "spaced-repetition.js",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "An Javascript implementation of toolkit for Spaced Repetition.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -19,6 +19,14 @@
   ],
   "author": "sunyata2022",
   "license": "ISC",
+  "website": "https://github.com/sunyata2022/spaced-repetition.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sunyata2022/spaced-repetition.js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sunyata2022/spaced-repetition.js/issues"
+  },
   "devDependencies": {
     "@types/jest": "^29.5.2",
     "jest": "^29.5.0",
