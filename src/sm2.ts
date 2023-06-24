@@ -31,30 +31,19 @@ function calculateInterval(interval: number, efactor: number): number {
  * @return {SM2Result} an object with the next SM2Item and a boolean indicating if the item needs to be repeated
  */
 function sm2(item: SM2Item): SM2Result {
-  let { interval = 1, count = 1, efactor = 2.5, quality } = item;
-
-  if (interval < 1) interval = 1;
-  if (count < 1) count = 1;
-  if (efactor < 1.3) efactor = 1.3;
-  if (efactor > 2.5) efactor = 2.5;
-  if (quality < 0) quality = 0;
-  if (quality > 5) quality = 5;
+  let { interval = 0, count = 0, efactor = 2.5, quality } = item;
+  const nextItem: SM2Item = { interval, count, efactor, quality };
 
   const needRepeat: boolean = quality < 4;
-  const nextItem: SM2Item = {
-    interval,
-    count,
-    efactor,
-    quality,
-  };
+  nextItem.efactor = calculateEFactor(efactor, quality);
 
   if (quality < 3) {
-    nextItem.interval = 1;
-    nextItem.count = 1;
-    // should not be changed.
-    // nextItem.efactor = 2.5;
+    nextItem.interval = 0;
+    nextItem.count = 0;
   } else {
-    switch (count) {
+    nextItem.count = count + 1;
+
+    switch (nextItem.count) {
       case 1:
         nextItem.interval = 1;
         break;
@@ -65,9 +54,6 @@ function sm2(item: SM2Item): SM2Result {
         nextItem.interval = calculateInterval(interval, efactor);
         break;
     }
-
-    nextItem.count = count + 1;
-    nextItem.efactor = calculateEFactor(efactor, quality);
   }
 
   return { item: nextItem, needRepeat };
