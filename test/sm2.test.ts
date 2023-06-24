@@ -12,7 +12,7 @@ describe('sm2', () => {
         expect(result.item.count).toBe(2);
         expect(result.item.efactor).toBe(2.5);
         expect(result.needRepeat).toBe(false);
-    })
+    });
 
     const firstTimeItem: SM2Item = {
         interval: 0,
