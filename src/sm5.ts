@@ -1,19 +1,21 @@
+
 import { calculateEFactor } from "./common";
 
-export interface OIMatrix {
+export interface OFMatrix {
     [key: string]: number[]
 }
 
-export interface SM4Item {
+export interface SM5Item {
     count?: number,
     efactor?: number,
     quality: number,
-    matrix?: OIMatrix,
+    matrix?: OFMatrix,
+    interval: number,
     fraction?: number,
 }
 
-export interface SM4Result {
-    item: SM4Item,
+export interface SM5Result {
+    item: SM5Item,
     needRepeat: boolean,
 }
 
@@ -21,19 +23,16 @@ function createMatrixEntry(efactor: string, count: number = 20): number[] {
     const entrys: number[] = [];
     for (let i = 0; i < count; i++) {
         if (i === 0) {
-            entrys.push(1);
-        } else if (i === 1) {
-            entrys.push(6);
+            entrys.push(4);
         } else {
-            const lastEntry = entrys.at(-1);
-            entrys.push(lastEntry! * Number(efactor));
+            entrys.push(Number(efactor))
         }
     }
     return entrys;
 }
 
-function initMatrix(): OIMatrix {
-    const matrix: OIMatrix = {};
+function initMatrix(): OFMatrix {
+    const matrix: OFMatrix = {};
 
     for (let i = 1.3; i < 2.6; i += 0.1) {
         const efactor = i.toFixed(1);
@@ -43,23 +42,21 @@ function initMatrix(): OIMatrix {
     return matrix;
 }
 
-function updateMetrix(matrix: OIMatrix, efactor: number, count: number, quality: number, fraction: number): void {
+function updateMetrix(matrix: OFMatrix, efactor: number, count: number, quality: number, fraction: number): void {
     let entryValue = matrix[efactor][count - 1];
-    let tempValue = entryValue + entryValue * (1 - 1 / efactor) / 2 * (0.25 * quality - 1);
+    let tempValue = entryValue * (0.72 + quality * 0.07);
     entryValue = (1 - fraction) * entryValue + fraction * tempValue;
 
     matrix[efactor][count - 1] = entryValue;
 }
 
-function sm4(item: SM4Item): SM4Result {
-    let { count = 1, efactor = 2.5, quality, matrix, fraction = 1 } = item;
-
-    if (count < 1) count = 1;
+function sm5(item: SM5Item): SM5Result {
+    let { interval = 4, count = 1, efactor = 2.5, quality, matrix = initMatrix(), fraction = 1 } = item;
+    
     if (efactor < 1.3) efactor = 1.3;
     if (efactor > 2.5) efactor = 2.5;
     if (quality < 0) quality = 0;
     if (quality > 5) quality = 5;
-    if (matrix == null) matrix = initMatrix()
 
     const needRepeat: boolean = quality < 4;
 
@@ -74,8 +71,11 @@ function sm4(item: SM4Item): SM4Result {
         efactor,
         quality,
         matrix,
-        fraction
+        fraction,
+        interval,
     };
+
+    nextItem.interval = getInterval(nextItem);
 
     return {
         item: nextItem,
@@ -83,10 +83,14 @@ function sm4(item: SM4Item): SM4Result {
     }
 }
 
-export function getInterval(item: SM4Item): number {
+export function getInterval(item: SM5Item): number {
     const { efactor = 2.5, count = 1, matrix = initMatrix()} = item;
 
-    return matrix[efactor][count - 1];
+    if (count === 1) return matrix[efactor][count - 1];
+
+    const entryValue = matrix[efactor][count - 1];
+
+    return 0;
 }
 
-export default sm4;
+export default sm5;

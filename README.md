@@ -1,17 +1,17 @@
-# Spaced Repetition.js
+# spaced-repetition.js
 
-Spaced Repetition.js is a JavaScript library for implementing the spaced repetition algorithm. Currently, it only supports the SM-2 algorithm.
+`spaced-repetition.js` is a JavaScript library for implementing the spaced repetition algorithm. Currently, it only supports the SM-2 algorithm.
 
 ## Installation
 
-To install Spaced Repetition.js, run:
+To install `spaced-repetition.js`, run:
 ```bash
 npm install spaced-repetition.js
 ```
 
 ## Dependencies
 
-Spaced Repetition.js does not have any dependencies.
+`spaced-repetition.js` does not have any dependencies.
 
 ## Usage
 

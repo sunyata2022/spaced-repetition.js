@@ -58,6 +58,8 @@ function main() {
         const {item, needRepeat} = sm4({ count, efactor, quality, matrix });
         updateCard(card, item);
 
+        saveMatrixToSomewhere(item.matrix);
+
         if(needRepeat) {
             console.log('Card need to remember again today until quality >= 4.', card);
         }
