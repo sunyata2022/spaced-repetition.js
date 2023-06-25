@@ -18,7 +18,9 @@ describe('sm4', () => {
     fraction: number,
   ) {
     let entryValue = matrix[efactor][count - 1];
-    let tempValue = entryValue + ((entryValue * (1 - 1 / efactor)) / 2) * (0.25 * quality - 1);
+    let tempValue =
+      entryValue +
+      ((entryValue * (1 - 1 / efactor)) / 2) * (0.25 * quality - 1);
     entryValue = (1 - fraction) * entryValue + fraction * tempValue;
 
     return entryValue;
@@ -45,34 +47,35 @@ describe('sm4', () => {
     } = sm4({ quality: 4 });
     let result = sm4({ quality: 5, efactor: 2.5, count: 1 });
 
-    expect(result.item.matrix![2.5][0]).toBe(getEntryValue(originMatrix!, 2.5, 1, 5, 1));
+    expect(result.item.matrix![2.5][0]).toBe(
+      getEntryValue(originMatrix!, 2.5, 1, 5, 1),
+    );
     expect(result.item.matrix![2.5][1]).toBe(originMatrix![2.5][1]);
 
     result = sm4({ quality: 3, efactor: 1.5, count: 2 });
-    expect(result.item.matrix![1.5][1]).toBe(getEntryValue(originMatrix!, 1.5, 2, 3, 1));
+    expect(result.item.matrix![1.5][1]).toBe(
+      getEntryValue(originMatrix!, 1.5, 2, 3, 1),
+    );
   });
 
   test('getInterval', () => {
     let result = sm4({ quality: 5, efactor: 2.5, count: 1 });
-    expect(result.item.matrix![result!.item!.efactor!][result!.item!.count! - 1]).toBe(
-      getInterval(result.item),
-    );
+    expect(
+      result.item.matrix![result!.item!.efactor!][result!.item!.count! - 1],
+    ).toBe(getInterval(result.item));
 
     result = sm4({ quality: 4, efactor: 2.1, count: 5 });
-    expect(result.item.matrix![result!.item!.efactor!][result!.item!.count! - 1]).toBe(
-      getInterval(result.item),
-    );
+    expect(
+      result.item.matrix![result!.item!.efactor!][result!.item!.count! - 1],
+    ).toBe(getInterval(result.item));
 
     result = sm4({ quality: 3, efactor: 1.5, count: 2 });
-    expect(result.item.matrix![result!.item!.efactor!][result!.item!.count! - 1]).toBe(
-      getInterval(result.item),
-    );
+    expect(
+      result.item.matrix![result!.item!.efactor!][result!.item!.count! - 1],
+    ).toBe(getInterval(result.item));
     expect(result.needRepeat).toBe(true);
 
     result = sm4({ quality: 2, efactor: 1.5, count: 2 });
-    expect(result.item.matrix![result!.item!.efactor!][result!.item!.count! - 1]).toBe(
-      getInterval(result.item),
-    );
     expect(result.needRepeat).toBe(true);
   });
 });

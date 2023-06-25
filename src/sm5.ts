@@ -75,7 +75,7 @@ function sm5(item: SM5Item): SM5Result {
   };
 }
 
-export function getInterval(item: SM5Item): number {
+function getInterval_internal(item: SM5Item): number {
   const { efactor, count, matrix } = item;
 
   if (item == null || matrix == null || efactor == null || !count || count < 1) return 0;
@@ -83,8 +83,12 @@ export function getInterval(item: SM5Item): number {
   if (count === 1) return matrix[efactor][count - 1];
 
   return (
-    matrix[efactor][count - 1] * getInterval({ ...item, count: count - 1 })
+    matrix[efactor][count - 1] * getInterval_internal({ ...item, count: count - 1 })
   );
+}
+
+export function getInterval(item: SM5Item): number {
+  return Math.round(getInterval_internal(item));
 }
 
 export default sm5;
