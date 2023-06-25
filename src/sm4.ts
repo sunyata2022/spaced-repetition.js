@@ -51,14 +51,21 @@ function updateMetrix(
   fraction: number,
 ): void {
   let entryValue = matrix[efactor][count - 1];
-  let tempValue = entryValue + ((entryValue * (1 - 1 / efactor)) / 2) * (0.25 * quality - 1);
+  let tempValue =
+    entryValue + ((entryValue * (1 - 1 / efactor)) / 2) * (0.25 * quality - 1);
   entryValue = (1 - fraction) * entryValue + fraction * tempValue;
 
   matrix[efactor][count - 1] = entryValue;
 }
 
 function sm4(item: SM4Item): SM4Result {
-  let { count = 0, efactor = 2.5, quality, matrix = initMatrix(), fraction = 1 } = item;
+  let {
+    count = 0,
+    efactor = 2.5,
+    quality,
+    matrix = initMatrix(),
+    fraction = 1,
+  } = item;
 
   const nextItem = { count, efactor, quality, matrix, fraction };
   const needRepeat: boolean = quality < 4;
@@ -75,8 +82,8 @@ function sm4(item: SM4Item): SM4Result {
 
 export function getInterval(item: SM4Item): number {
   const { efactor, count, matrix } = item;
-  if (item == null || matrix == null || efactor == null || count == null) {
-    return -1;
+  if (item == null || matrix == null || efactor == null || !count) {
+    return 0;
   }
 
   return matrix[efactor][count - 1];
