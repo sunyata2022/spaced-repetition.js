@@ -32,8 +32,8 @@ function calculateInterval(interval: number, efactor: number): number {
  */
 function sm2(item: SM2Item): SM2Result {
   let { interval = 0, count = 0, efactor = 2.5, quality } = item;
-  const nextItem: SM2Item = { interval, count, efactor, quality };
 
+  const nextItem: SM2Item = { interval, count, efactor, quality };
   const needRepeat: boolean = quality < 4;
   nextItem.efactor = calculateEFactor(efactor, quality);
 
