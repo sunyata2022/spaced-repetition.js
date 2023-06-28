@@ -3,7 +3,6 @@ import sm4, { SM4Item, SM4Result, getInterval } from '../src/sm4';
 interface Card {
     question: string,
     answer: string,
-    interval?: number,
     count?: number,
     efactor?: number,
 };
@@ -11,10 +10,10 @@ interface Card {
 function getCardsFromSomewhere(): Card[] {
     const cards: Card[] = [
         { question: 'a', answer: 'A' },
-        { question: 'b', answer: 'B', interval: 1, count: 1, efactor: 2.5 },
-        { question: 'c', answer: 'C', interval: 6, count: 2, efactor: 1.8 },
-        { question: 'd', answer: 'D', interval: 8, count: 3, efactor: 1.3 },
-        { question: 'e', answer: 'E', interval: 16, count: 4, efactor: 2.1 },
+        { question: 'b', answer: 'B', count: 1, efactor: 2.5 },
+        { question: 'c', answer: 'C', count: 2, efactor: 1.8 },
+        { question: 'd', answer: 'D', count: 3, efactor: 1.3 },
+        { question: 'e', answer: 'E', count: 4, efactor: 2.1 },
     ];
 
     return cards;

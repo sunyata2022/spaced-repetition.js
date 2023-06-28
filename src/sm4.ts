@@ -32,7 +32,7 @@ function createMatrixEntry(efactor: string, count: number = 20): number[] {
   return entrys;
 }
 
-function initMatrix(): OIMatrix {
+export function initMatrix(): OIMatrix {
   const matrix: OIMatrix = {};
 
   for (let i = 1.3; i < 2.6; i += 0.1) {

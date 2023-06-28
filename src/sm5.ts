@@ -29,7 +29,7 @@ function createMatrixEntry(efactor: string, count: number = 20): number[] {
   return entrys;
 }
 
-function initMatrix(): OFMatrix {
+export function initMatrix(): OFMatrix {
   const matrix: OFMatrix = {};
 
   for (let i = 1.3; i < 2.6; i += 0.1) {
