@@ -1,4 +1,4 @@
-import SMFactory, { SMType, SMResult, SMQuality } from '../src/factory';
+import SMFactory, { SMType, SMResult } from '../src/factory';
 
 describe('class SMFactory', () => {
     it('should be defined', () => {

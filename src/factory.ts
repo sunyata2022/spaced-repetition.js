@@ -28,11 +28,9 @@ interface SMItem {
   efactor: number;
 }
 
-export type SMQuality = 0 | 1 | 2 | 3 | 4 | 5;
-
 abstract class SuperMemo {
   protected readonly smtype: SMType = SMType.None;
-  abstract evaluate(quality: SMQuality, smdata: string): SMResult;
+  abstract evaluate(quality: number, smdata: string | undefined): SMResult;
   abstract getMatrix(): string;
 
   protected parseSMData(smdata: string): SMItem {
@@ -59,7 +57,7 @@ abstract class SuperMemo {
 class SuperMemo2 extends SuperMemo {
   protected readonly smtype: SMType = SMType.SM2;
 
-  evaluate(quality: SMQuality, smdata: string = ''): SMResult {
+  evaluate(quality: number, smdata: string = ''): SMResult {
     const { efactor, count } = this.parseSMData(smdata);
     const { needRepeat: repeat, item } = sm2({ efactor, count, quality });
     const nextSMData = this.encodeSMData(item!.efactor!, item!.count!);
@@ -75,7 +73,7 @@ class SuperMemo4 extends SuperMemo {
   protected readonly smtype: SMType = SMType.SM4;
   private matrix: OIMatrix;
 
-  constructor(matrix: string) {
+  constructor(matrix: string | undefined | null) {
     super();
     if (matrix == null || matrix.length === 0) {
       this.matrix = initOIMatrix();
@@ -88,7 +86,7 @@ class SuperMemo4 extends SuperMemo {
     return JSON.stringify(this.matrix);
   }
 
-  evaluate(quality: SMQuality, smdata: string = ''): SMResult {
+  evaluate(quality: number, smdata: string = ''): SMResult {
     const { efactor, count } = this.parseSMData(smdata);
     const { needRepeat: repeat, item } = sm4({ efactor, count, quality });
     const nextSMData = this.encodeSMData(item!.efactor!, item!.count!);
@@ -109,7 +107,7 @@ class SuperMemo5 extends SuperMemo {
   protected readonly smtype: SMType = SMType.SM5;
   private matrix: OFMatrix;
 
-  constructor(matrix: string) {
+  constructor(matrix: string | undefined | null) {
     super();
     if (matrix == null || matrix.length === 0) {
       this.matrix = initOFMatrix();
@@ -122,7 +120,7 @@ class SuperMemo5 extends SuperMemo {
     return JSON.stringify(this.matrix);
   }
 
-  evaluate(quality: SMQuality, smdata: string = ''): SMResult {
+  evaluate(quality: number, smdata: string = ''): SMResult {
     const { efactor, count } = this.parseSMData(smdata);
     const { needRepeat: repeat, item } = sm5({ efactor, count, quality });
     const nextSMData = this.encodeSMData(item!.efactor!, item!.count!);
@@ -135,7 +133,7 @@ class SuperMemo5 extends SuperMemo {
 }
 
 export default class SMFactory {
-  static getSuperMemo(type: SMType, metrix: string = ''): SuperMemo | null {
+  static getSuperMemo(type: SMType, metrix: string | undefined | null = null): SuperMemo | null {
     switch (type) {
       case SMType.SM2:
         return new SuperMemo2();
