@@ -47,6 +47,8 @@ In the earlier version (1.0.x), there were too many data exported that users did
 
 The algorithm only cares about the number of repetitions (count), memory quality (quality), efactor, and the matrix data in SM-4 and SM-5. The algorithm calculates and uses these data by itself, and users only need to store and pass them.
 
+**Note**: The intervals (interval) calculated in all algorithms are measured in **days**.
+
 ### Usage of SM-2 in version 1.0.x
 
 ```ts
