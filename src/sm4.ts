@@ -50,12 +50,12 @@ function updateMetrix(
   quality: number,
   fraction: number,
 ): void {
-  let entryValue = matrix[efactor][count - 1];
+  let entryValue = matrix[efactor.toFixed(1)][count - 1];
   let tempValue =
     entryValue + ((entryValue * (1 - 1 / efactor)) / 2) * (0.25 * quality - 1);
   entryValue = (1 - fraction) * entryValue + fraction * tempValue;
 
-  matrix[efactor][count - 1] = entryValue;
+  matrix[efactor.toFixed(1)][count - 1] = Math.round(entryValue * 100) / 100 ;
 }
 
 function sm4(item: SM4Item): SM4Result {
@@ -86,7 +86,7 @@ export function getInterval(item: SM4Item): number {
     return 0;
   }
 
-  return matrix[efactor][count - 1];
+  return Math.round(matrix[efactor.toFixed(1)][count - 1]);
 }
 
 export default sm4;

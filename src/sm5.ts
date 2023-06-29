@@ -47,11 +47,11 @@ function updateMetrix(
   quality: number,
   fraction: number,
 ): void {
-  let entryValue = matrix[efactor][count - 1];
+  let entryValue = matrix[efactor.toFixed(1)][count - 1];
   let tempValue = entryValue * (0.72 + quality * 0.07);
   entryValue = (1 - fraction) * entryValue + fraction * tempValue;
 
-  matrix[efactor][count - 1] = entryValue;
+  matrix[efactor.toFixed(1)][count - 1] = Math.round(entryValue * 100) / 100;
 }
 
 function sm5(item: SM5Item): SM5Result {
@@ -80,10 +80,10 @@ function getInterval_internal(item: SM5Item): number {
 
   if (item == null || matrix == null || efactor == null || !count || count < 1) return 0;
 
-  if (count === 1) return matrix[efactor][count - 1];
+  if (count === 1) return matrix[efactor.toFixed(1)][count - 1];
 
   return (
-    matrix[efactor][count - 1] * getInterval_internal({ ...item, count: count - 1 })
+    matrix[efactor.toFixed(1)][count - 1] * getInterval_internal({ ...item, count: count - 1 })
   );
 }
 
