@@ -43,7 +43,7 @@ abstract class SuperMemo {
     if (smtype === this.smtype) {
       return { efactor, count };
     } else {
-      throw new SMTypeError(
+      throw new Error(
         `smdata's type is SMType.SM${smtype}, it should be SMType.SM${this.smtype}`,
       );
     }
@@ -88,11 +88,11 @@ class SuperMemo4 extends SuperMemo {
 
   evaluate(quality: number, smdata: string = ''): SMResult {
     const { efactor, count } = this.parseSMData(smdata);
-    const { needRepeat: repeat, item } = sm4({ efactor, count, quality });
+    const { needRepeat: repeat, item } = sm4({ efactor, count, quality,matrix: this.matrix });
     const nextSMData = this.encodeSMData(item!.efactor!, item!.count!);
     return {
       repeat,
-      interval: getOIMInterval({
+      interval: repeat ? 0: getOIMInterval({
         efactor,
         count,
         matrix: this.matrix,
@@ -122,11 +122,11 @@ class SuperMemo5 extends SuperMemo {
 
   evaluate(quality: number, smdata: string = ''): SMResult {
     const { efactor, count } = this.parseSMData(smdata);
-    const { needRepeat: repeat, item } = sm5({ efactor, count, quality });
+    const { needRepeat: repeat, item } = sm5({ efactor, count, quality, matrix: this.matrix });
     const nextSMData = this.encodeSMData(item!.efactor!, item!.count!);
     return {
       repeat,
-      interval: getOFInterval({ efactor, count, matrix: this.matrix, quality }),
+      interval: repeat ? 0:  getOFInterval({ efactor, count, matrix: this.matrix, quality }),
       smdata: nextSMData,
     };
   }
