@@ -32,7 +32,7 @@ describe('class SuperMemo2', () => {
         expect(result).toBeDefined();
 
         expect(result?.repeat).toBe(false);
-        expect(result?.interval).toBe(1);
+        expect(result?.interval).toBe(6);
         expect(result?.smdata).toBe('2,2.5,2');
     });
 });
@@ -57,7 +57,7 @@ describe('class SuperMemo4', () => {
         expect(result).toBeDefined();
 
         expect(result?.repeat).toBe(false);
-        expect(result?.interval).toBe(1);
+        expect(result?.interval).toBe(6);
         expect(result?.smdata).toBe('4,2.5,2');
     });
 });
@@ -82,7 +82,7 @@ describe('class SuperMemo5', () => {
         expect(result).toBeDefined();
 
         expect(result?.repeat).toBe(false);
-        expect(result?.interval).toBe(4);
+        expect(result?.interval).toBe(10);
         expect(result?.smdata).toBe('5,2.5,2');
     });
 });

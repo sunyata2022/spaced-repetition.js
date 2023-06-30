@@ -9,8 +9,8 @@ function newEFactor(efactor: number, quality: number) {
   return Math.round(efactor * 10) / 10;
 }
 
-function newInterval(efactor: number, interval: number) {
-  return Math.round(interval * efactor);
+function newInterval(efactor: number, count: number) {
+  return Math.round(Math.pow(efactor, count - 2) * 6);
 }
 
 describe('sm2', () => {
@@ -74,7 +74,7 @@ describe('sm2', () => {
     const result = sm2(secondTimeItem);
 
     expect(result.item.interval).toBe(
-      newInterval(secondTimeItem!.efactor!, secondTimeItem!.interval!),
+      newInterval(secondTimeItem.efactor!, result.item.count!),
     );
     expect(result.item.count).toBe(3);
     expect(result.item.efactor).toBe(1.4);
@@ -86,7 +86,7 @@ describe('sm2', () => {
     const result = sm2(secondTimeItem);
 
     expect(result.item.interval).toBe(
-      newInterval(secondTimeItem!.efactor!, secondTimeItem!.interval!),
+      newInterval(secondTimeItem.efactor!, result.item.count!),
     );
     expect(result.item.count).toBe(3);
     expect(result.item.efactor).toBe(1.3);
@@ -113,7 +113,7 @@ describe('sm2', () => {
   test('some time with quality = 5', () => {
     const result = sm2(otherItem);
 
-    expect(result.item.interval).toBe(8);
+    expect(result.item.interval).toBe(newInterval(otherItem.efactor!, result.item.count!));
     expect(result.item.count).toBe(4);
     expect(result.item.efactor).toBe(1.5);
     expect(result.needRepeat).toBe(false);
@@ -123,7 +123,7 @@ describe('sm2', () => {
     otherItem.quality = 4;
     const result = sm2(otherItem);
 
-    expect(result.item.interval).toBe(8);
+    expect(result.item.interval).toBe(newInterval(otherItem.efactor!, result.item.count!));
     expect(result.item.count).toBe(4);
     expect(result.item.efactor).toBe(1.4);
     expect(result.needRepeat).toBe(false);
@@ -133,7 +133,7 @@ describe('sm2', () => {
     otherItem.quality = 3;
     const result = sm2(otherItem);
 
-    expect(result.item.interval).toBe(8);
+    expect(result.item.interval).toBe(newInterval(otherItem.efactor!, result.item.count!));
     expect(result.item.count).toBe(4);
     expect(result.item.efactor).toBe(1.3);
     expect(result.needRepeat).toBe(true);
