@@ -1,4 +1,3 @@
-import { SM2Result } from './../src/sm2';
 import { SMFactory, SMType, SMResult } from "../src";
 
 function randomSMData(smtype: SMType): string {
