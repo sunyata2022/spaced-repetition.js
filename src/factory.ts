@@ -72,14 +72,18 @@ class SuperMemo2 extends SuperMemo {
 class SuperMemo4 extends SuperMemo {
   protected readonly smtype: SMType = SMType.SM4;
   private matrix: OIMatrix;
+  private fraction: number;
 
-  constructor(matrix: string | undefined | null) {
+  constructor(matrix: string | undefined | null, fraction: number) {
     super();
+
     if (matrix == null || matrix.length === 0) {
       this.matrix = initOIMatrix();
     } else {
       this.matrix = JSON.parse(matrix);
     }
+
+    this.fraction = fraction;
   }
 
   getMatrix(): string {
@@ -88,16 +92,24 @@ class SuperMemo4 extends SuperMemo {
 
   evaluate(quality: number, smdata: string = ''): SMResult {
     const { efactor, count } = this.parseSMData(smdata);
-    const { needRepeat: repeat, item } = sm4({ efactor, count, quality,matrix: this.matrix });
+    const { needRepeat: repeat, item } = sm4({
+      efactor,
+      count,
+      quality,
+      matrix: this.matrix,
+      fraction: this.fraction,
+    });
     const nextSMData = this.encodeSMData(item!.efactor!, item!.count!);
     return {
       repeat,
-      interval: repeat ? 0: getOIMInterval({
-        efactor,
-        count,
-        matrix: this.matrix,
-        quality,
-      }),
+      interval: repeat
+        ? 0
+        : getOIMInterval({
+            efactor,
+            count: item.count,
+            matrix: this.matrix,
+            quality,
+          }),
       smdata: nextSMData,
     };
   }
@@ -106,14 +118,18 @@ class SuperMemo4 extends SuperMemo {
 class SuperMemo5 extends SuperMemo {
   protected readonly smtype: SMType = SMType.SM5;
   private matrix: OFMatrix;
+  private fraction: number;
 
-  constructor(matrix: string | undefined | null) {
+  constructor(matrix: string | undefined | null, fraction: number) {
     super();
+
     if (matrix == null || matrix.length === 0) {
       this.matrix = initOFMatrix();
     } else {
       this.matrix = JSON.parse(matrix);
     }
+
+    this.fraction = fraction;
   }
 
   getMatrix(): string {
@@ -122,25 +138,37 @@ class SuperMemo5 extends SuperMemo {
 
   evaluate(quality: number, smdata: string = ''): SMResult {
     const { efactor, count } = this.parseSMData(smdata);
-    const { needRepeat: repeat, item } = sm5({ efactor, count, quality, matrix: this.matrix });
+    const { needRepeat: repeat, item } = sm5({
+      efactor,
+      count,
+      quality,
+      matrix: this.matrix,
+      fraction: this.fraction,
+    });
     const nextSMData = this.encodeSMData(item!.efactor!, item!.count!);
     return {
       repeat,
-      interval: repeat ? 0:  getOFInterval({ efactor, count, matrix: this.matrix, quality }),
+      interval: repeat
+        ? 0
+        : getOFInterval({ efactor, count, matrix: this.matrix, quality }),
       smdata: nextSMData,
     };
   }
 }
 
 export default class SMFactory {
-  static getSuperMemo(type: SMType, metrix: string | undefined | null = null): SuperMemo | null {
+  static getSuperMemo(
+    type: SMType,
+    metrix: string | undefined | null = null,
+    fraction: number = 1,
+  ): SuperMemo | null {
     switch (type) {
       case SMType.SM2:
         return new SuperMemo2();
       case SMType.SM4:
-        return new SuperMemo4(metrix);
+        return new SuperMemo4(metrix, fraction);
       case SMType.SM5:
-        return new SuperMemo5(metrix);
+        return new SuperMemo5(metrix, fraction);
       default:
         return null;
     }
