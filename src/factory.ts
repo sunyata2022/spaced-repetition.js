@@ -50,7 +50,7 @@ abstract class SuperMemo {
   }
 
   protected encodeSMData(efactor: number, count: number): string {
-    return [this.smtype, efactor, count].join(',');
+    return [this.smtype, efactor.toFixed(1), count].join(',');
   }
 }
 
@@ -60,8 +60,15 @@ class SuperMemo2 extends SuperMemo {
   evaluate(quality: number, smdata: string = ''): SMResult {
     const { efactor, count } = this.parseSMData(smdata);
     const { needRepeat: repeat, item } = sm2({ efactor, count, quality });
-    const nextSMData = this.encodeSMData(item!.efactor!, item!.count!);
-    return { repeat, interval: item!.interval!, smdata: nextSMData };
+    const nextSMData = this.encodeSMData(
+      item!.efactor!,
+      repeat ? 0 : item!.count!,
+    );
+    return {
+      repeat,
+      interval: repeat ? 0 : item!.interval!,
+      smdata: nextSMData,
+    };
   }
 
   getMatrix(): string {
@@ -99,7 +106,10 @@ class SuperMemo4 extends SuperMemo {
       matrix: this.matrix,
       fraction: this.fraction,
     });
-    const nextSMData = this.encodeSMData(item!.efactor!, item!.count!);
+    const nextSMData = this.encodeSMData(
+      item!.efactor!,
+      repeat ? 0 : item!.count!,
+    );
     return {
       repeat,
       interval: repeat
@@ -145,12 +155,15 @@ class SuperMemo5 extends SuperMemo {
       matrix: this.matrix,
       fraction: this.fraction,
     });
-    const nextSMData = this.encodeSMData(item!.efactor!, item!.count!);
+    const nextSMData = this.encodeSMData(
+      item!.efactor!,
+      repeat ? 0 : item!.count!,
+    );
     return {
       repeat,
       interval: repeat
         ? 0
-        : getOFInterval({ efactor, count, matrix: this.matrix, quality }),
+        : getOFInterval({ efactor, count:item.count, matrix: this.matrix, quality }),
       smdata: nextSMData,
     };
   }
